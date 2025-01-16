@@ -1,0 +1,19 @@
+{
+  "name": "anime-episodes",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@consumet/extensions": "^1.8.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "string-similarity": "^4.0.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/string-similarity": "^4.0.2"
+  }
+}
