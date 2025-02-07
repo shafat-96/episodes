@@ -1,6 +1,10 @@
 # 📺 Episodes API
 
-A simple API to fetch anime episode details. Based on [Consumet.ts](https://github.com/consumet/consumet.ts)
+A simple API to fetch anime episode details, built on top of  
+[Consumet.ts](https://github.com/consumet/consumet.ts) and [Airin](https://github.com/aniplaynow/airin).  
+
+If you find this useful, consider giving those projects a ⭐—they deserve it! (also this repo too 😅)
+
 
 ## 🚀 Getting Started
 
