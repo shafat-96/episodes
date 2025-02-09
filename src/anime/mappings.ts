@@ -1,6 +1,7 @@
+import { IAnimeInfo, ITitle } from '@consumet/extensions';
 import { AnimeInfoAnilist } from '../lib/Anilistfunctions'
 import { getProvider } from "../providers/index"
-import { IAnimeInfo, Mappings, AnimeTitle } from '../utils/types'
+import { Mappings } from '../utils/types'
 
 interface MappingResponse {
     gogoanime: Mappings | null;
@@ -17,8 +18,8 @@ export async function getMappings(id: string, provider: string): Promise<Mapping
             return null;
         }
 
-        const gogores = await mapGogo(data.title as AnimeTitle, provider);
-        const zorores = await mapZoro(data.title as AnimeTitle, provider);
+        const gogores = await mapGogo(data.title as ITitle, provider);
+        const zorores = await mapZoro(data.title as ITitle, provider);
 
         return {
             gogoanime: gogores,
@@ -43,10 +44,10 @@ async function getInfo(id: string): Promise<IAnimeInfo | null> {
     }
 }
 
-async function mapGogo(title: AnimeTitle, provider: string): Promise<Mappings | null> {
+async function mapGogo(title: ITitle, provider: string): Promise<Mappings | null> {
     return await getProvider(provider).getMapping(title);
 }
 
-async function mapZoro(title: AnimeTitle, provider: string): Promise<Mappings | null> {
+async function mapZoro(title: ITitle, provider: string): Promise<Mappings | null> {
     return await getProvider(provider).getMapping(title);
 }

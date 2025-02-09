@@ -1,14 +1,10 @@
-import { ANIME } from "@consumet/extensions";
-import { Provider } from "./base";
-import { findSimilarTitles } from "../lib/stringSimilarity";
+import { ANIME, ITitle } from "@consumet/extensions";
+import { Provider } from "../base";
+import { findSimilarTitles } from "../../lib/stringSimilarity";
 import {
-  IAnimeInfo,
-  AnimeTitle,
   Mappings,
-  SearchResponse,
-  SearchResult,
   EpisodeData,
-} from "../utils/types";
+} from "../../utils/types";
 
 export class ZoroProvider extends Provider {
   constructor() {
@@ -35,7 +31,7 @@ export class ZoroProvider extends Provider {
     }
   }
 
-  async getMapping(title: AnimeTitle): Promise<Mappings> {
+  async getMapping(title: ITitle): Promise<Mappings> {
     try {
       // Run searches in parallel
       const searchTerm =

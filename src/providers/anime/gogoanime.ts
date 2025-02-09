@@ -1,14 +1,10 @@
-import { ANIME } from "@consumet/extensions";
-import { Provider } from "./base";
-import { findSimilarTitles } from "../lib/stringSimilarity";
+import { ANIME, ITitle } from "@consumet/extensions";
+import { Provider } from "../base";
+import { findSimilarTitles } from "../../lib/stringSimilarity";
 import {
-  IAnimeInfo,
-  AnimeTitle,
   Mappings,
-  SearchResponse,
-  SearchResult,
   EpisodeData,
-} from "../utils/types";
+} from "../../utils/types";
 
 export class GogoAnimeProvider extends Provider {
   constructor() {
@@ -29,7 +25,7 @@ export class GogoAnimeProvider extends Provider {
     }
   }
 
-  async getMapping(title: AnimeTitle): Promise<Mappings> {
+  async getMapping(title: ITitle): Promise<Mappings> {
     try {
       // Parallel search execution
       const [engResults, romResults] = await Promise.all([

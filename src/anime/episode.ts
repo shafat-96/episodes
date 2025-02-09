@@ -1,7 +1,7 @@
 import { getProvider } from "../providers/index";
 import { CombineEpisodeMeta, EpisodeImage } from "../utils/EpisodeFunctions";
 import { getMappings } from "./mappings";
-import { Episode, EpisodeData, IAnimeResult } from "../utils/types";
+import { EpisodeData } from "../utils/types";
 import { META } from "@consumet/extensions/dist";
 import Zoro from "@consumet/extensions/dist/providers/anime/zoro";
 

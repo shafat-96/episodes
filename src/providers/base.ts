@@ -1,22 +1,33 @@
-import { AnimeTitle, EpisodeData, IAnimeInfo, Mappings, SearchResult } from "../utils/types";
+import { ITitle } from "@consumet/extensions";
+import {
+  EpisodeData,
+  FetchEpisodesSources,
+  Mappings,
+  Stream,
+} from "../utils/types";
 
 export abstract class Provider {
-    public name: string;
+  public name: string;
 
-    constructor(name: string) {
-        this.name = name;
-    }
+  constructor(name: string) {
+    this.name = name;
+  }
 
-    async search(query: string): Promise<SearchResult[]> {
-        throw new Error('Method not implemented');
-    }
+  async fetchEpisodes(id: string): Promise<EpisodeData[]> {
+    throw new Error("Method not implemented");
+  }
 
-    async fetchEpisodes(id: string): Promise<EpisodeData[]> {
-        throw new Error('Method not implemented');
-    }
+  async getMapping(title: ITitle): Promise<Mappings> {
+    throw new Error("Method not implemented");
+  }
 
-    async getMapping(title: AnimeTitle): Promise<Mappings> {
-        throw new Error('Method not implemented');
-    }
-
+  async fetchEpisodesSources({
+    tmdbId,
+    episodeNumber,
+    seasonNumber,
+    type,
+    server,
+  }: FetchEpisodesSources): Promise<Stream[]> {
+    throw new Error("Method not implemented");
+  }
 }

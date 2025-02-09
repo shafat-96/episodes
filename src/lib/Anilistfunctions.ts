@@ -1,4 +1,4 @@
-import { IAnimeInfo } from "../utils/types";
+import { IAnimeInfo } from "@consumet/extensions";
 import { animeinfo } from "./anilistqueries";
 
 

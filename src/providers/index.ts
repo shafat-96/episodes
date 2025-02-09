@@ -1,10 +1,12 @@
 import { Provider } from './base';
-import { GogoAnimeProvider } from './gogoanime';
-import { ZoroProvider } from './zoro';
+import { GogoAnimeProvider } from './anime/gogoanime';
+import { ZoroProvider } from './anime/zoro';
+import { TMDBProvider } from './movies/tmdb';
 
 const providers: Record<string, Provider> = {
     gogoanime: new GogoAnimeProvider(),
-    zoro: new ZoroProvider()
+    zoro: new ZoroProvider(),
+    tmdb: new TMDBProvider(),
 };
 
 export function getProvider(name: string): Provider {
