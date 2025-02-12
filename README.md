@@ -32,12 +32,18 @@ npm run dev
 
 ## 📡 API Endpoints
 
-### 🎯 Fetch Episodes (only for anime endpoint)
+### 🎯 Fetch Episodes
 
 **GET**
 
 ```sh
-http://localhost:3001/{anilistId}?provider=gogoanime # or zoro
+http://localhost:3001/anime/episodes/{anilistId}?provider=gogoanime # or zoro
+```
+
+**GET**
+
+```sh
+http://localhost:3001/movies/episodes/{tmdbId}?type={movie} # or tv
 ```
 
 ---
@@ -55,5 +61,5 @@ http://localhost:3001/movies/watch/{tmdbId}?episodeNumber={episodeNumber}&season
 
 #### Query Parameters
 
-- **type**: `movie` or `series` / `tv` (any one among series or tv)
+- **type**: `movie` or `tv`
 - **server**: `"hydrax", "fastx", "filmecho", "nova", "guru", "g1", "g2", "ee3", "ghost", "putafilme", "asiacloud", "kage", "multi", "stable"`

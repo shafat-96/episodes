@@ -106,10 +106,10 @@ export const fetchEpisodesData = async (
   );
   // console.log("Results:", results[0]);
 
-  if (episodeMeta?.length > 0) {
+  if (episodeMeta?.length > 0 && results[0]) {
     return await CombineEpisodeMeta(results[0], episodeMeta);
   }
-  return results[0];
+  return results[0] || [];
 };
 
 export const getEpisodes = async (id: string): Promise<UnifiedEpisode[]> => {

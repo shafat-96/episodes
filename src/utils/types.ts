@@ -69,16 +69,21 @@ export interface Mappings {
   [key: string]: string | undefined;
 }
 
-export interface Stream {
+export interface Source {
   server: string;
   sources: IVideo[];
   subtitles?: ISubtitle[];
 }
 
-export interface FetchEpisodesSources {
-  tmdbId: number;
-  episodeNumber: number;
-  seasonNumber: number;
+export interface Server{
+  name: string;
+  url: string;
+}
+
+export interface FetchSourcesAndServers {
+  tmdbId: string;
+  episodeNumber: string;
+  seasonNumber: string;
   type: string;
   server?: string;
 }

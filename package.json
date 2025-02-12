@@ -6,8 +6,10 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@consumet/extensions": "^1.8.1",
+    "@consumet/extensions": "github:consumet/consumet.ts",
+    "axios": "^1.7.9",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "string-similarity": "^4.0.4"
   },

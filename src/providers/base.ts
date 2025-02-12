@@ -1,9 +1,10 @@
-import { ITitle } from "@consumet/extensions";
+import { ITitle, TvType } from "@consumet/extensions";
 import {
   EpisodeData,
-  FetchEpisodesSources,
+  FetchSourcesAndServers,
   Mappings,
-  Stream,
+  Server,
+  Source,
 } from "../utils/types";
 
 export abstract class Provider {
@@ -13,7 +14,8 @@ export abstract class Provider {
     this.name = name;
   }
 
-  async fetchEpisodes(id: string): Promise<EpisodeData[]> {
+  async fetchEpisodes(id: string,type?: string,
+    provider?: string): Promise<EpisodeData[]> {
     throw new Error("Method not implemented");
   }
 
@@ -21,13 +23,11 @@ export abstract class Provider {
     throw new Error("Method not implemented");
   }
 
-  async fetchEpisodesSources({
-    tmdbId,
-    episodeNumber,
-    seasonNumber,
-    type,
-    server,
-  }: FetchEpisodesSources): Promise<Stream[]> {
+  async fetchEpisodeSources(episodeId: string, ...args: any): Promise<Source[]> {
+    throw new Error("Method not implemented");
+  }
+
+  async fetchEpisodeServers(episodeId: string, ...args: any): Promise<any[]> {
     throw new Error("Method not implemented");
   }
 }

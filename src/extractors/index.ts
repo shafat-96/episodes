@@ -1,4 +1,4 @@
-import { Stream } from "../utils/types";
+import { Source } from "../utils/types";
 import { multiExtractor } from "./multi";
 import { stableExtractor } from "./stable";
 import { getRiveStream } from "./rive";
@@ -8,10 +8,10 @@ const autoembed = "YXV0b2VtYmVkLmNj";
 export const allGetStream = async (
   id: string,
   type: string
-): Promise<Stream[]> => {
+): Promise<Source[]> => {
   try {
     // console.log(id);
-    const streams: Stream[] = [];
+    const streams: Source[] = [];
     const { season, episode, tmdbId } = JSON.parse(id);
 
     ///// rive
@@ -112,7 +112,7 @@ export const allGetStream = async (
         });
       }
     } catch (err) {
-      console.error("Tom", err);
+      // console.error("Tom", err);
     }
     return streams;
   } catch (err) {

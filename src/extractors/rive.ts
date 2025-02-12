@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Stream } from "../utils/types";
+import { Source } from "../utils/types";
 import { ISubtitle } from "@consumet/extensions";
 
 export async function getRiveStream(
@@ -7,7 +7,7 @@ export async function getRiveStream(
   episode: string,
   season: string,
   type: string,
-  Streams: Stream[]
+  Sources: Source[]
 ) {
   const secret = generateSecretKey(Number(tmdId));
   const servers = [
@@ -28,7 +28,7 @@ export async function getRiveStream(
   const cors = "";
   // console.log("CORS: " + cors);
   const route =
-    type === "series"
+    type === "series" || type === "tv"
       ? `/api/backendfetch?requestID=tvVideoProvider&id=${tmdId}&season=${season}&episode=${episode}&secretKey=${secret}&service=`
       : `/api/backendfetch?requestID=movieVideoProvider&id=${tmdId}&secretKey=${secret}&service=`;
   const url = baseUrl + route;
@@ -49,7 +49,7 @@ export async function getRiveStream(
         }
         // console.log("Rive res: ", subtitles[0]);
         res.data?.data?.sources.forEach((source: any) => {
-          Streams.push({
+          Sources.push({
             server: source?.source + "-" + source?.quality,
             sources: [
               { url: source?.url, isM3U8: source?.url?.endsWith(".m3u8") },
@@ -58,7 +58,8 @@ export async function getRiveStream(
           });
         });
       } catch (e) {
-        console.log(e);
+        // console.log(e);
+        throw new Error("Rive Error");
       }
     })
   );
