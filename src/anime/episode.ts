@@ -86,7 +86,6 @@ export const fetchEpisodesData = async (
           if (providerMappings.dub) {
             episodes.dub = await provider.fetchEpisodes(providerMappings.dub);
           }
-          console.log(providerMappings);
           if(preferredProvider==="zoro" || preferredProvider==="animekai"){
             episodes.dub = await provider.fetchEpisodes(providerMappings.sub);
           }

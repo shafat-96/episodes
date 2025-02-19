@@ -11,7 +11,6 @@ export class AnimeKaiProvider extends Provider {
   }
   client = new ANIME.AnimeKai();
   async fetchEpisodes(id: string): Promise<IAnimeEpisode[]> {
-    console.log(id);
     try {
       const data = await this.client.fetchAnimeInfo(id);
       return data?.episodes || [];

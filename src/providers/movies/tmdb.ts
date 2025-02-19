@@ -8,11 +8,7 @@ import {
   TvType,
 } from "@consumet/extensions";
 import { Provider } from "../base";
-import {
-  FetchSourcesAndServers,
-  Server,
-  Source,
-} from "../../utils/types";
+import { FetchSourcesAndServers, Server, Source } from "../../utils/types";
 import { allGetStream } from "../../extractors";
 import axios from "axios";
 import { compareTwoStrings } from "../../utils/utils";
@@ -79,102 +75,92 @@ export class TMDBProvider extends Provider {
           const InfoFromProvider = await possibleProvider.fetchMediaInfo(
             providerId!
           );
-            info.id = providerId!;
-            info.title = data?.title || data?.name;
-            if (type === "movie"){info.episodeId = InfoFromProvider?.episodes![0]?.id;}
-            const totalSeasons = (data?.number_of_seasons as number) || 0;
-            if (type === "tv" && totalSeasons > 0) {
-              // console.log("totalSeasons", totalSeasons);
-              info.seasons = [];
-              const seasons = info.seasons as any[];
+          info.id = providerId!;
+          info.title = data?.title || data?.name;
+          if (type === "movie") {
+            info.episodeId = InfoFromProvider?.episodes![0]?.id;
+          }
+          const totalSeasons = (data?.number_of_seasons as number) || 0;
+          if (type === "tv" && totalSeasons > 0) {
+            // console.log("totalSeasons", totalSeasons);
+            info.seasons = [];
+            const seasons = info.seasons as any[];
 
-              const providerEpisodes = InfoFromProvider?.episodes as any[];
-              // console.log(
-              //   "providerEpisodes",
-              //   providerEpisodes
-              // );
-              if (providerEpisodes?.length < 1) return info;
+            const providerEpisodes = InfoFromProvider?.episodes as any[];
+            // console.log(
+            //   "providerEpisodes",
+            //   providerEpisodes
+            // );
+            if (providerEpisodes?.length < 1) return info;
 
-              info.nextAiringEpisode = data?.next_episode_to_air
-                ? {
-                    season:
-                      data.next_episode_to_air?.season_number || undefined,
-                    episode:
-                      data.next_episode_to_air?.episode_number || undefined,
-                    releaseDate:
-                      data.next_episode_to_air?.air_date || undefined,
-                    title: data.next_episode_to_air?.name || undefined,
-                    description:
-                      data.next_episode_to_air?.overview || undefined,
-                    runtime: data.next_episode_to_air?.runtime || undefined,
-                  }
-                : undefined;
+            info.nextAiringEpisode = data?.next_episode_to_air
+              ? {
+                  season: data.next_episode_to_air?.season_number || undefined,
+                  episode:
+                    data.next_episode_to_air?.episode_number || undefined,
+                  releaseDate: data.next_episode_to_air?.air_date || undefined,
+                  title: data.next_episode_to_air?.name || undefined,
+                  description: data.next_episode_to_air?.overview || undefined,
+                  runtime: data.next_episode_to_air?.runtime || undefined,
+                }
+              : undefined;
 
-              for (let i = 1; i <= totalSeasons; i++) {
-                const { data: seasonData } = await axios.get(
-                  seasonUrl(i.toString())
-                );
+            for (let i = 1; i <= totalSeasons; i++) {
+              const { data: seasonData } = await axios.get(
+                seasonUrl(i.toString())
+              );
 
-                //find season in each episode (providerEpisodes)
-                const seasonEpisodes = providerEpisodes?.filter(
-                  (episode) => episode.season === i
-                );
-                console.log(
-                  "seasonEpisodes",
-                  seasonEpisodes
-                );
-                const episodes =
-                  seasonData?.episodes?.length <= 0
-                    ? undefined
-                    : seasonData?.episodes.map(
-                        (episode: any): IMovieEpisode => {
-                          //find episode in each season (seasonEpisodes)
-                          const episodeFromProvider = seasonEpisodes?.find(
-                            (ep) => ep.number === episode.episode_number
-                          );
-                          console.log(
-                            "episodeFromProvider",
-                            episodeFromProvider
-                          );
-                          return {
-                            id: episodeFromProvider?.id,
-                            title: episode.name,
-                            episode: episode.episode_number,
-                            season: episode.season_number,
-                            releaseDate: episode.air_date,
-                            description: episode.overview,
-                            url: episodeFromProvider?.url || undefined,
-                            img: !episode?.still_path
-                              ? undefined
-                              : {
-                                  mobile: `https://image.tmdb.org/t/p/w300${episode.still_path}`,
-                                  hd: `https://image.tmdb.org/t/p/w780${episode.still_path}`,
-                                },
-                          };
-                        }
+              //find season in each episode (providerEpisodes)
+              const seasonEpisodes = providerEpisodes?.filter(
+                (episode) => episode.season === i
+              );
+              console.log("seasonEpisodes", seasonEpisodes);
+              const episodes =
+                seasonData?.episodes?.length <= 0
+                  ? undefined
+                  : seasonData?.episodes.map((episode: any): IMovieEpisode => {
+                      //find episode in each season (seasonEpisodes)
+                      const episodeFromProvider = seasonEpisodes?.find(
+                        (ep) => ep.number === episode.episode_number
                       );
+                      console.log("episodeFromProvider", episodeFromProvider);
+                      return {
+                        id: episodeFromProvider?.id,
+                        title: episode.name,
+                        episode: episode.episode_number,
+                        season: episode.season_number,
+                        releaseDate: episode.air_date,
+                        description: episode.overview,
+                        url: episodeFromProvider?.url || undefined,
+                        img: !episode?.still_path
+                          ? undefined
+                          : {
+                              mobile: `https://image.tmdb.org/t/p/w300${episode.still_path}`,
+                              hd: `https://image.tmdb.org/t/p/w780${episode.still_path}`,
+                            },
+                      };
+                    });
 
-                seasons.push({
-                  season: i,
-                  image: !seasonData?.poster_path
-                    ? undefined
-                    : {
-                        mobile: `https://image.tmdb.org/t/p/w300${seasonData.poster_path}`,
-                        hd: `https://image.tmdb.org/t/p/w780${seasonData.poster_path}`,
-                      },
-                  episodes,
-                  isReleased:
-                    seasonData?.episodes[0]?.air_date > new Date().toISOString()
-                      ? false
-                      : true,
-                });
-              }
+              seasons.push({
+                season: i,
+                image: !seasonData?.poster_path
+                  ? undefined
+                  : {
+                      mobile: `https://image.tmdb.org/t/p/w300${seasonData.poster_path}`,
+                      hd: `https://image.tmdb.org/t/p/w780${seasonData.poster_path}`,
+                    },
+                episodes,
+                isReleased:
+                  seasonData?.episodes[0]?.air_date > new Date().toISOString()
+                    ? false
+                    : true,
+              });
             }
+          }
         }
       } else {
         const totalSeasons = data?.number_of_seasons || 0;
         if (type === "tv" && totalSeasons > 0) {
-          data?.title || data?.name
           info.seasons = [];
           const seasons = info.seasons as any[];
 
@@ -230,20 +216,27 @@ export class TMDBProvider extends Provider {
             });
           }
         } else {
-          info.episodes = [
-            {
-              id: `${id}-${type}`,
-              title: data.original_title,
-              releaseDate: data.release_date,
-              description: data.overview,
-              img: !data?.poster_path
-                ? undefined
-                : {
-                    mobile: `https://image.tmdb.org/t/p/w300${data.poster_path}`,
-                    hd: `https://image.tmdb.org/t/p/w780${data.poster_path}`,
-                  },
-            },
-          ];
+          info.seasons = [];
+          info.seasons.push({
+            season: 1,
+            image: !data?.poster_path?undefined:`https://image.tmdb.org/t/p/w780${data.poster_path}`,
+            episodes: [
+              {
+                id: `${id}-${type}-s1-e1`,
+                title: data.title || data.original_title,
+                episode: 1,
+                season: 1,
+                releaseDate: data.release_date,
+                description: data.overview,
+                img: !data?.poster_path
+                  ? undefined
+                  : {
+                      mobile: `https://image.tmdb.org/t/p/w300${data.poster_path}`,
+                      hd: `https://image.tmdb.org/t/p/w780${data.poster_path}`,
+                    },
+              },
+            ],
+          });
         }
       }
     } catch (err) {
