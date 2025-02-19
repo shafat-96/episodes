@@ -1,9 +1,8 @@
-import { ANIME, ITitle } from "@consumet/extensions";
+import { ANIME, IAnimeEpisode, ITitle } from "@consumet/extensions";
 import { Provider } from "../base";
 import { findSimilarTitles } from "../../lib/stringSimilarity";
 import {
   Mappings,
-  EpisodeData,
 } from "../../utils/types";
 
 export class GogoAnimeProvider extends Provider {
@@ -11,10 +10,9 @@ export class GogoAnimeProvider extends Provider {
     super("gogoanime");
   }
   client = new ANIME.Gogoanime();
-  async fetchEpisodes(id: string): Promise<EpisodeData[]> {
+  async fetchEpisodes(id: string): Promise<IAnimeEpisode[]> {
     try {
       const data = await this.client.fetchAnimeInfo(id);
-      //   @ts-ignore
       return data?.episodes || [];
     } catch (error) {
       console.error(

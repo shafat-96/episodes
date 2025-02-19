@@ -9,7 +9,6 @@ import {
 } from "@consumet/extensions";
 import { Provider } from "../base";
 import {
-  EpisodeData,
   FetchSourcesAndServers,
   Server,
   Source,

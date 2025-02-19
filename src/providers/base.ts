@@ -1,6 +1,5 @@
-import { ITitle, TvType } from "@consumet/extensions";
+import { IAnimeEpisode, ITitle, TvType } from "@consumet/extensions";
 import {
-  EpisodeData,
   FetchSourcesAndServers,
   Mappings,
   Server,
@@ -15,7 +14,7 @@ export abstract class Provider {
   }
 
   async fetchEpisodes(id: string,type?: string,
-    provider?: string): Promise<EpisodeData[]> {
+    provider?: string): Promise<IAnimeEpisode[]> {
     throw new Error("Method not implemented");
   }
 

@@ -1,13 +1,12 @@
 import { getProvider } from "../providers/index";
 import { CombineEpisodeMeta, EpisodeImage } from "../utils/EpisodeFunctions";
 import { getMappings } from "./mappings";
-import { EpisodeData } from "../utils/types";
-import { META } from "@consumet/extensions/dist";
+import { IAnimeEpisode, META } from "@consumet/extensions/dist";
 import Zoro from "@consumet/extensions/dist/providers/anime/zoro";
 
 interface EpisodeResponse {
-  sub: EpisodeData[];
-  dub: EpisodeData[];
+  sub: IAnimeEpisode[];
+  dub: IAnimeEpisode[];
 }
 
 export interface UnifiedEpisode extends EpisodeImage {
@@ -18,7 +17,7 @@ export interface UnifiedEpisode extends EpisodeImage {
 
 interface MetaResponse {
   episodes: {
-    [key: string]: EpisodeData;
+    [key: string]: IAnimeEpisode;
   };
 }
 
@@ -26,7 +25,7 @@ const meta = new META.Anilist(
   new Zoro()
 );
 
-async function fetchEpisodeMeta(id: string): Promise<EpisodeData[]> {
+async function fetchEpisodeMeta(id: string): Promise<IAnimeEpisode[]> {
   try {
     const res = await fetch(`https://api.ani.zip/mappings?anilist_id=${id}`);
     const data: MetaResponse = await res.json();
@@ -87,10 +86,9 @@ export const fetchEpisodesData = async (
           if (providerMappings.dub) {
             episodes.dub = await provider.fetchEpisodes(providerMappings.dub);
           }
-          if(preferredProvider === "zoro") {
-            const zoroDubArr = await meta.fetchEpisodesListById(id,true);
-            // @ts-ignore
-            episodes.dub = zoroDubArr;
+          console.log(providerMappings);
+          if(preferredProvider==="zoro" || preferredProvider==="animekai"){
+            episodes.dub = await provider.fetchEpisodes(providerMappings.sub);
           }
         })(),
       ]);
@@ -129,14 +127,13 @@ function unifyEpisodes(
   const unifiedEpisodes: UnifiedEpisode[] = [];
 
   const dubMap = new Map(dub.map((d) => [d.number, d]));
-
   sub.forEach((subEpisode) => {
     const matchingDub = dubMap.get(subEpisode.number);
 
     unifiedEpisodes.push({
       id: subEpisode.id,
       dubId: matchingDub?.id,
-      isDub: !!matchingDub,
+      isDub: matchingDub?.isDubbed,
       number: subEpisode.number,
       url: subEpisode.url,
       dubUrl: matchingDub?.url,
