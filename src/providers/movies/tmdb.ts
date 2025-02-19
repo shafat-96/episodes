@@ -49,7 +49,7 @@ export class TMDBProvider extends Provider {
       id,
       title: "",
     };
-
+console.log(infoUrl);
     try {
       const { data } = await axios.get(infoUrl);
 
@@ -219,7 +219,7 @@ export class TMDBProvider extends Provider {
           info.seasons = [];
           info.seasons.push({
             season: 1,
-            image: !data?.poster_path?undefined:`https://image.tmdb.org/t/p/w780${data.poster_path}`,
+            image: !data?.poster_path?undefined:`https://image.tmdb.org/t/p/w780${data.backdrop_path}`,
             episodes: [
               {
                 id: `${id}-${type}-s1-e1`,
@@ -228,11 +228,11 @@ export class TMDBProvider extends Provider {
                 season: 1,
                 releaseDate: data.release_date,
                 description: data.overview,
-                img: !data?.poster_path
+                img: !data?.backdrop_path
                   ? undefined
                   : {
-                      mobile: `https://image.tmdb.org/t/p/w300${data.poster_path}`,
-                      hd: `https://image.tmdb.org/t/p/w780${data.poster_path}`,
+                      mobile: `https://image.tmdb.org/t/p/w300${data.backdrop_path}`,
+                      hd: `https://image.tmdb.org/t/p/w780${data.backdrop_path}`,
                     },
               },
             ],
