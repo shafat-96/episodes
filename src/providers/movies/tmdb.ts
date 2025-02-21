@@ -49,7 +49,6 @@ export class TMDBProvider extends Provider {
       id,
       title: "",
     };
-console.log(infoUrl);
     try {
       const { data } = await axios.get(infoUrl);
 
@@ -282,12 +281,25 @@ console.log(infoUrl);
       episode: episodeNumber,
     };
     const stream = await allGetStream(JSON.stringify(id), type);
-    const server = stream.map((stream) => ({
-      name: stream.server,
-      url: stream.sources[0].url,
+    const serverUrls = stream.map(s => ({
+      name: s.server,
+      url: s.sources[0].url
     }));
-    // console.log(server);
-    return server;
+
+    const validServers = await Promise.all(
+      serverUrls.map(async (server) => {
+      try {
+        await axios.head(server.url);
+        return server;
+      } catch (error) {
+        return null;
+      }
+      })
+    );
+
+    return validServers.filter((server): server is { name: string, url: string } => 
+      server !== null
+    );
   }
 
   private findIdFromTitle = async (
