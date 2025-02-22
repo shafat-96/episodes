@@ -251,8 +251,8 @@ export class TMDBProvider extends Provider {
     episodeNumber: string,
     seasonNumber: string,
     type: string,
-    server?: string
-  ): Promise<Source[]> {
+    server: string
+  ): Promise<Source> {
     const id = {
       tmdbId: episodeId,
       season: seasonNumber,
@@ -260,13 +260,9 @@ export class TMDBProvider extends Provider {
     };
     // console.log(id, type);
     const stream = await allGetStream(JSON.stringify(id), type);
-    if (!server) {
-      return stream;
-    } else {
       return stream.filter((stream) =>
-        stream.server.toLowerCase().includes(server.toLowerCase())
-      );
-    }
+        stream.server.toLowerCase() === server.toLowerCase()
+      )[0]
   }
 
   async fetchEpisodeServers(

@@ -29,7 +29,7 @@ export const allGetStream = async (
     const links = await multiExtractor(server1Url);
     links.forEach(({ lang, url }) => {
       streams.push({
-        server: "Multi" + (lang ? `- ${lang}` : ""),
+        server: "Multi"+ (lang ? `-${lang}` : ""),
         sources: [{ url, isM3U8: url.includes(".m3u8") }],
       });
     });
@@ -61,7 +61,7 @@ export const allGetStream = async (
     const links4 = await multiExtractor(server4Url);
     links4.forEach(({ lang, url }) => {
       streams.push({
-        server: "Multi " + (lang ? `- ${lang}` : ""),
+        server: "Multi" + (lang ? `-${lang}` : ""),
         sources: [{ url, isM3U8: url.includes(".m3u8") }],
       });
     });
@@ -75,7 +75,7 @@ export const allGetStream = async (
     const links3 = await stableExtractor(server3Url);
     links3.forEach(({ lang, url }) => {
       streams.push({
-        server: "Stable Viet " + (lang ? `- ${lang}` : ""),
+        server: "Stable-Viet "+ (lang ? `-${lang}` : ""),
         sources: [{ url, isM3U8: url.includes(".m3u8") }],
       });
     });

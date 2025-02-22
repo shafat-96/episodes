@@ -3,13 +3,13 @@ import { Source } from "../utils/types";
 import { ISubtitle } from "@consumet/extensions";
 
 export async function getRiveStream(
-  tmdId: string,
+  tmdbId: string,
   episode: string,
   season: string,
   type: string,
   Sources: Source[]
 ) {
-  const secret = generateSecretKey(Number(tmdId));
+  const secret = generateSecretKey(Number(tmdbId));
   const servers = [
     "hydrax",
     "fastx",
@@ -25,19 +25,17 @@ export async function getRiveStream(
     "kage",
   ];
   const baseUrl = "https://rivestream.live";
-  const cors = "";
-  // console.log("CORS: " + cors);
+  // console.log(tmdbId, episode, season, type);
   const route =
     type === "series" || type === "tv"
-      ? `/api/backendfetch?requestID=tvVideoProvider&id=${tmdId}&season=${season}&episode=${episode}&secretKey=${secret}&service=`
-      : `/api/backendfetch?requestID=movieVideoProvider&id=${tmdId}&secretKey=${secret}&service=`;
+      ? `/api/backendfetch?requestID=tvVideoProvider&id=${tmdbId}&season=${season}&episode=${episode}&secretKey=${secret}&service=`
+      : `/api/backendfetch?requestID=movieVideoProvider&id=${tmdbId}&secretKey=${secret}&service=`;
   const url = baseUrl + route;
   await Promise.all(
     servers.map(async (server) => {
       // console.log("Rive: " + url + server);
       try {
         const res = await axios.get(url + server, { timeout: 4000 });
-        // console.log("Rive Stream: " + url + server);
         const subtitles :ISubtitle[]= [];
         if (res.data?.data?.captions) {
           res.data?.data?.captions.forEach((sub: any) => {
@@ -50,13 +48,14 @@ export async function getRiveStream(
         // console.log("Rive res: ", subtitles[0]);
         res.data?.data?.sources.forEach((source: any) => {
           Sources.push({
-            server: source?.source + "-" + source?.quality,
+            server: `${source?.source}-${source?.quality.split(" ").join("-")}`,
             sources: [
               { url: source?.url, isM3U8: source?.url?.endsWith(".m3u8") },
             ],
             subtitles: subtitles,
           });
         });
+        // console.log("Rive Stream: ", Sources);
       } catch (e) {
         // console.log(e);
         throw new Error("Rive Error");

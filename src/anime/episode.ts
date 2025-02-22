@@ -91,7 +91,7 @@ export const fetchEpisodesData = async (
           }
         })(),
       ]);
-      const unifiedEpisodes = unifyEpisodes(episodes.sub, episodes.dub);
+      const unifiedEpisodes = unifyEpisodes(episodes.sub, episodes.dub,id);
       if (episodes.sub.length > 0 || episodes.dub.length > 0) {
         return unifiedEpisodes;
       }
@@ -121,7 +121,8 @@ export const getEpisodes = async (id: string): Promise<UnifiedEpisode[]> => {
 
 function unifyEpisodes(
   sub: EpisodeImage[],
-  dub: EpisodeImage[]
+  dub: EpisodeImage[],
+  anilistId:string
 ): UnifiedEpisode[] {
   const unifiedEpisodes: UnifiedEpisode[] = [];
 
@@ -132,6 +133,7 @@ function unifyEpisodes(
     unifiedEpisodes.push({
       id: subEpisode.id,
       dubId: matchingDub?.id,
+      uniqueId: `${anilistId}$ep=${subEpisode.number}`,
       isDub: matchingDub?.isDubbed,
       number: subEpisode.number,
       url: subEpisode.url,

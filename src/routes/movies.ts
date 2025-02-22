@@ -65,10 +65,10 @@ router.get("/watch/:tmdbId", async (req: any, res: any) => {
       });
     }
 
-    if (!type || !seasonNumber || !episodeNumber) {
+    if (!type || !seasonNumber || !episodeNumber || !server) {
       return res.status(400).json({
         success: false,
-        error: "Missing either type, seasonNumber or episodeNumber parameter",
+        error: "Missing either type, seasonNumber, episodeNumber or server parameter",
       });
     }
 

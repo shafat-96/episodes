@@ -55,9 +55,15 @@ http://localhost:3001/movies/episodes/{tmdbId}?type={movie} # or tv
 ```
 http://localhost:3001/movies/watch/{tmdbId}?episodeNumber={episodeNumber}&seasonNumber={seasonNumber}&type={type}&server={server}
 ```
+---
 
-> **Note:**  
-> If no `server` is provided, the API will return all available servers.
+### 🎯 Fetch Servers (only for movies endpoint)
+
+**GET**
+
+```
+http://localhost:3001/movies/server/{tmdbId}?episodeNumber={episodeNumber}&seasonNumber={seasonNumber}&type={type}
+```
 
 #### Query Parameters
 

@@ -22,11 +22,11 @@ export abstract class Provider {
     throw new Error("Method not implemented");
   }
 
-  async fetchEpisodeSources(episodeId: string, ...args: any): Promise<Source[]> {
+  async fetchEpisodeSources(episodeId: string, ...args: any): Promise<Source> {
     throw new Error("Method not implemented");
   }
 
-  async fetchEpisodeServers(episodeId: string, ...args: any): Promise<any[]> {
+  async fetchEpisodeServers(episodeId: string, ...args: any): Promise<Server[]> {
     throw new Error("Method not implemented");
   }
 }
