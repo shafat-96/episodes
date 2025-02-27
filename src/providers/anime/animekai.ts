@@ -1,9 +1,8 @@
 import { ANIME, IAnimeEpisode, ITitle } from "@consumet/extensions";
 import { Provider } from "../base";
 import { findSimilarTitles } from "../../lib/stringSimilarity";
-import {
-  Mappings,
-} from "../../utils/types";
+import { Mappings } from "../../utils/types";
+import axios from "axios";
 
 export class AnimeKaiProvider extends Provider {
   constructor() {
@@ -24,6 +23,8 @@ export class AnimeKaiProvider extends Provider {
   }
 
   async getMapping(title: ITitle): Promise<Mappings> {
+    const { data } = await axios.get("https://animekai.to");
+    console.log(data);
     try {
       // Run searches in parallel
       const searchTerm =
@@ -45,9 +46,11 @@ export class AnimeKaiProvider extends Provider {
       ]);
 
       // Use Set for efficient deduplication
-            const uniqueResults = Array.from(
-          new Set([...mappedEng, ...mappedRom].map(item => JSON.stringify(item)))
-      ).map(str => JSON.parse(str));
+      const uniqueResults = Array.from(
+        new Set(
+          [...mappedEng, ...mappedRom].map((item) => JSON.stringify(item))
+        )
+      ).map((str) => JSON.parse(str));
 
       // Sort by similarity score
       uniqueResults.sort((a, b) => (b.similarity || 0) - (a.similarity || 0));
