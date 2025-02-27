@@ -185,6 +185,7 @@ export class TMDBProvider extends Provider {
                 : seasonData?.episodes.map((episode: any): IMovieEpisode => {
                     return {
                       id: `${id}-${type}-s${episode.season_number}-e${episode.episode_number}`,
+                      uniqueId: `${id}-${type}-s${episode.season_number}-e${episode.episode_number}`,
                       title: episode.name,
                       episode: episode.episode_number,
                       season: episode.season_number,
@@ -222,6 +223,7 @@ export class TMDBProvider extends Provider {
             episodes: [
               {
                 id: `${id}-${type}-s1-e1`,
+                uniqueId: `${id}-${type}-s1-e1`,
                 title: data.title || data.original_title,
                 episode: 1,
                 season: 1,

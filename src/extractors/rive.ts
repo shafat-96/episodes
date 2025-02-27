@@ -40,7 +40,7 @@ export async function getRiveStream(
         if (res.data?.data?.captions) {
           res.data?.data?.captions.forEach((sub: any) => {
             subtitles.push({
-              lang: sub?.label?.split(" - ")[0] || "Und",
+              lang: sub?.label?.replace(" - Ghost","") || "Und",
               url: sub?.file,
             });
           });
