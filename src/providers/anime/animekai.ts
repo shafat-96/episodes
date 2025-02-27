@@ -23,7 +23,7 @@ export class AnimeKaiProvider extends Provider {
   }
 
   async getMapping(title: ITitle): Promise<Mappings> {
-    const { data } = await axios.get("https://animekai.to");
+    const { data } = await axios.get("https://animekai.to")
     console.log(data);
     try {
       // Run searches in parallel
