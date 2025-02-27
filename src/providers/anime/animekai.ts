@@ -28,8 +28,7 @@ export class AnimeKaiProvider extends Provider {
         authority: "animekai.to",
         accept: "application/json, text/javascript, */*; q=0.01",
         "accept-language": "en-US,en;q=0.9",
-        cookie:
-          'cf_clearance:"_y9Ln_Y_QH7mhogAMTXRZ8dTTIfFQBl7ZvCr5yytz4g-1740660140-1.2.1.1-toSAGSZbsNAmGTkaayHfcqQTYFnIYOyZv_tgUWrYVtJNhe6vCFcpAUt3s3AOiIjDYfYFssc7nrA0ilCGoMUJQm7i.MkylFTo2polFbL7rmHwwjlRmRCzPv2V28_6Jpe7awBMUHTP2Xl1s3ZESYLrQqoCeETykvDp6G0Q9Ou7lbvxQKQ0ctX8sTesf4XpfmyRaDGq0Juqxxkwi64W.C.P_tpx2EjsDl30ThZttyRi47bqHXXc3yjzeBgcfhzV0LUElzwh7g9dTzWfmDVf6CmwAmpa4mKMpD.zaBaUvYP3wSA"',
+        Cookie: 'cf_clearance=_y9Ln_Y_QH7mhogAMTXRZ8dTTIfFQBl7ZvCr5yytz4g-1740660140-1.2.1.1-toSAGSZbsNAmGTkaayHfcqQTYFnIYOyZv_tgUWrYVtJNhe6vCFcpAUt3s3AOiIjDYfYFssc7nrA0ilCGoMUJQm7i.MkylFTo2polFbL7rmHwwjlRmRCzPv2V28_6Jpe7awBMUHTP2Xl1s3ZESYLrQqoCeETykvDp6G0Q9Ou7lbvxQKQ0ctX8sTesf4XpfmyRaDGq0Juqxxkwi64W.C.P_tpx2EjsDl30ThZttyRi47bqHXXc3yjzeBgcfhzV0LUElzwh7g9dTzWfmDVf6CmwAmpa4mKMpD.zaBaUvYP3wSA',
         dnt: "1",
         "sec-ch-ua":
           '"Not A(Brand";v="99", "Microsoft Edge";v="121", "Chromium";v="121"',
