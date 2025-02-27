@@ -70,7 +70,7 @@ export class ZoroProvider extends Provider {
       return mappings;
     } catch (error) {
       console.error(
-        "Error in getMapping:",
+        "Error in getMapping from zoro:",
         error instanceof Error ? error.message : "Unknown error"
       );
       return {};

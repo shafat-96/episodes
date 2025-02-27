@@ -69,7 +69,8 @@ export class AnimeKaiProvider extends Provider {
       return mappings;
     } catch (error) {
       console.error(
-        "Error in getMapping:",
+        "Error in getMapping from animekai :",
+        error,
         error instanceof Error ? error.message : "Unknown error"
       );
       return {};
