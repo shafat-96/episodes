@@ -25,22 +25,18 @@ export class AnimeKaiProvider extends Provider {
   async getMapping(title: ITitle): Promise<Mappings> {
     const { data } = await axios.get("https://animekai.to", {
       headers: {
-        authority: "animekai.to",
-        accept: "application/json, text/javascript, */*; q=0.01",
-        "accept-language": "en-US,en;q=0.9",
-        Cookie: 'cf_clearance=_y9Ln_Y_QH7mhogAMTXRZ8dTTIfFQBl7ZvCr5yytz4g-1740660140-1.2.1.1-toSAGSZbsNAmGTkaayHfcqQTYFnIYOyZv_tgUWrYVtJNhe6vCFcpAUt3s3AOiIjDYfYFssc7nrA0ilCGoMUJQm7i.MkylFTo2polFbL7rmHwwjlRmRCzPv2V28_6Jpe7awBMUHTP2Xl1s3ZESYLrQqoCeETykvDp6G0Q9Ou7lbvxQKQ0ctX8sTesf4XpfmyRaDGq0Juqxxkwi64W.C.P_tpx2EjsDl30ThZttyRi47bqHXXc3yjzeBgcfhzV0LUElzwh7g9dTzWfmDVf6CmwAmpa4mKMpD.zaBaUvYP3wSA',
-        dnt: "1",
-        "sec-ch-ua":
-          '"Not A(Brand";v="99", "Microsoft Edge";v="121", "Chromium";v="121"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-origin",
-        "x-requested-with": "XMLHttpRequest",
-        referer: "https://animekai.to/",
-        "user-agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0",
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Sec-GPC": "1",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "Priority": "u=0",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache",
+        "Referer": "https://animekai.to/",
+        "Cookie": "usertype=guest; session=hxYne0BNXguMc8zK1FHqQKXPmmoANzBBOuNPM64a; cf_clearance=WfGWV1bKGAaNySbh.yzCyuobBOtjg0ncfPwMhtsvsrs-1737611098-1.2.1.1-zWHcaytuokjFTKbCAxnSPDc_BWAeubpf9TAAVfuJ2vZuyYXByqZBXAZDl_VILwkO5NOLck8N0C4uQr4yGLbXRcZ_7jfWUvfPGayTADQLuh.SH.7bvhC7DmxrMGZ8SW.hGKEQzRJf8N7h6ZZ27GMyqOfz1zfrOiu9W30DhEtW2N7FAXUPrdolyKjCsP1AK3DqsDtYOiiPNLnu47l.zxK80XogfBRQkiGecCBaeDOJHenjn._Zgykkr.F_2bj2C3AS3A5mCpZSlWK5lqhV6jQSQLF9wKWitHye39V.6NoE3RE"
       },
     });
     console.log(data);
